@@ -13,6 +13,7 @@ gem 'devise'
 gem 'figaro'
 gem 'rolify'
 gem 'simple_form'
+gem 'json'
 group :assets do
   gem 'less-rails'
   gem 'therubyracer', :platform=>:ruby

@@ -1,4 +1,11 @@
-<h3>Home</h3>
-<% @users.each do |user| %>
-  <p>User: <%=link_to user.name, user %></p>
-<% end %>
+<div class="hero-unit text-center">
+  <img src="/url.png">
+
+  <%= form_tag book_search_path, :method => "get", :class => "form-search" do %>
+    <div class="input-append">
+      <%= text_field_tag :search, params[:search], :class => "span4 search-query", :placeholder => "Search an ISBN" %>
+      <%= button_tag "Search", :name => nil, :class => "btn" %>
+    </div>
+  <% end %>
+
+</div>

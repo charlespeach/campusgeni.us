@@ -11,7 +11,29 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130915052011) do
+ActiveRecord::Schema.define(:version => 20130915082055) do
+
+  create_table "books", :force => true do |t|
+    t.integer  "isbn"
+    t.string   "title"
+    t.string   "author"
+    t.integer  "user_id"
+    t.integer  "course_id"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+  end
+
+  create_table "books_courses", :id => false, :force => true do |t|
+    t.integer "book_id"
+    t.integer "course_id"
+  end
+
+  create_table "courses", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "section_id"
+  end
 
   create_table "roles", :force => true do |t|
     t.string   "name"
@@ -23,6 +45,15 @@ ActiveRecord::Schema.define(:version => 20130915052011) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], :name => "index_roles_on_name_and_resource_type_and_resource_id"
   add_index "roles", ["name"], :name => "index_roles_on_name"
+
+  create_table "sections", :force => true do |t|
+    t.string   "title"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
+    t.integer  "course_id"
+  end
+
+  add_index "sections", ["course_id"], :name => "index_sections_on_course_id"
 
   create_table "users", :force => true do |t|
     t.string   "email",                  :default => "", :null => false
@@ -38,6 +69,7 @@ ActiveRecord::Schema.define(:version => 20130915052011) do
     t.datetime "created_at",                             :null => false
     t.datetime "updated_at",                             :null => false
     t.string   "name"
+    t.integer  "book_id"
   end
 
   add_index "users", ["email"], :name => "index_users_on_email", :unique => true

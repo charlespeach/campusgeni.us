@@ -182,6 +182,7 @@ DEPENDENCIES
   email_spec
   figaro
   jquery-rails
+  json
   less-rails
   quiet_assets
   rails (= 3.2.13)
