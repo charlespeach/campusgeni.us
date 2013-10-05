@@ -1,13 +1,27 @@
-<!--
-/* GOOGLE API RETURN 
-<h1> Search Result Page </h1> 
-  <div class="result"> 
-    <div class="inner-result">
-      <h2>Book Title: <%= @tempbook.title %> </h2>
-      <h2>Book Author: <%= @tempbook.author %> </h2>
-    </div>
-  </div>
-  */
-  -->
 
-  <p><%= pp @parsed_results %></p>
+
+<div id="mini-image">
+  <%= link_to(image_tag("#{@book.small_image_url}"), @book.amazon_url) %>
+</div>
+
+<div class="clearfix"></div>
+
+<div id="book-form">
+	<%= form_for @book do |f| %> 
+
+	 <%= f.label "title text" %>
+	 <%= f.text_field :title %>
+
+	 <%= f.label :author %>
+	 <%= f.text_field :author %>
+
+	 <%= f.label :title %>
+	 <%= f.text_field :title %>
+
+	 <%= f.label :edition %>
+	 <%= f.text_field :edition %>
+
+	 <%= f.submit "Add My Book" %>
+
+<% end %>
+</div>

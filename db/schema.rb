@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20130915082055) do
+ActiveRecord::Schema.define(:version => 20131005071016) do
 
   create_table "books", :force => true do |t|
     t.integer  "isbn"
@@ -19,8 +19,15 @@ ActiveRecord::Schema.define(:version => 20130915082055) do
     t.string   "author"
     t.integer  "user_id"
     t.integer  "course_id"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.datetime "created_at",       :null => false
+    t.datetime "updated_at",       :null => false
+    t.string   "amazon_url"
+    t.string   "small_image_url"
+    t.string   "medium_image_url"
+    t.string   "large_image_url"
+    t.string   "publisher"
+    t.string   "edition"
+    t.integer  "number_of_pages"
   end
 
   create_table "books_courses", :id => false, :force => true do |t|
