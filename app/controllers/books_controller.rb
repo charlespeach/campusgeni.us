@@ -40,9 +40,7 @@ class BooksController < ApplicationController
 		  )
 
 		isbn_query = params.fetch(:search, '')
-		
-		#strip "-" ** extract to method 
-	  	isbn_query.gsub!("-", "")
+	  	strip_hyphen!(isbn_query)
 
 
 		unless (isbn_query.size == 10 || isbn_query.size == 13)
@@ -85,9 +83,12 @@ class BooksController < ApplicationController
 			@book.edition = response['ItemLookupResponse']['Items']['Item'][0]['ItemAttributes']['Edition']
 			@book.number_of_pages = response['ItemLookupResponse']['Items']['Item'][0]['ItemAttributes']['NumberOfPages']
 		end
-
-	
-
-		
 	end
+
+	private 
+
+	def strip_hyphen!(string)
+		string.gsub!("-", "")
+	end
+
 end
