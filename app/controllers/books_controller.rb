@@ -2,6 +2,18 @@ class BooksController < ApplicationController
 	require 'yaml' #for when i extract
 	require 'vacuum'
 
+	before_filter :authenticate_user!, only: [:create]
+
+	def create
+
+	  if current_user.books.build(params[:book]).save
+	  	flash[:success] = "added book"
+	  else
+	  	redirect_to :back, notice: "shit didn't work son"
+	  end
+
+	end
+
 	def search
 		################## GOOGLE API #######################################
 		#@tempbook = Book.new
@@ -28,9 +40,13 @@ class BooksController < ApplicationController
 		  )
 
 		isbn_query = params.fetch(:search, '')
+		
+		#strip "-" ** extract to method 
+	  	isbn_query.gsub!("-", "")
 
-		if (isbn_query.size != 10)
-			flash[:notice] = "10 digits only please"
+
+		unless (isbn_query.size == 10 || isbn_query.size == 13)
+			flash[:notice] = "10/13 Digit ISBN Please."
 			redirect_to root_url
 			return
 		end
@@ -38,12 +54,10 @@ class BooksController < ApplicationController
 		@book = Book.new
 
 		amazon_api_params = { 'Operation'   => 'ItemLookup',
-		  			 'ResponseGroup' => 'Large',
-           			 'SearchIndex' => 'All',
-           			 'IdType' => 'ISBN',
-           			 'ItemId' => "#{isbn_query}"
-
-           			  }
+		  			 		  'ResponseGroup' => 'Large',
+           			          'SearchIndex' => 'All',
+           			          'IdType' => 'ISBN',
+           			          'ItemId' => "#{isbn_query}" }
 
 		amazon_response = req.get(query: amazon_api_params)
 		response = Response.new(amazon_response).to_h
@@ -71,5 +85,9 @@ class BooksController < ApplicationController
 			@book.edition = response['ItemLookupResponse']['Items']['Item'][0]['ItemAttributes']['Edition']
 			@book.number_of_pages = response['ItemLookupResponse']['Items']['Item'][0]['ItemAttributes']['NumberOfPages']
 		end
+
+	
+
+		
 	end
 end

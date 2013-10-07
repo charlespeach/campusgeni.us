@@ -1,27 +1,45 @@
 
+<div class="row">
 
-<div id="mini-image">
-  <%= link_to(image_tag("#{@book.small_image_url}"), @book.amazon_url) %>
+	<div class="span6">
+	  <%= link_to(image_tag("#{@book.large_image_url}"), @book.amazon_url) %>
+	</div>
+
+	<div class="span6"
+		<div id="book-form">
+			<%= form_for @book, :html => {:class => "form-horizontal"} do |f| %> 
+			 
+			 <%= f.label :title %>
+			 <%= f.text_field :title, readonly: true %>
+
+			 <%= f.label :author %>
+			 <%= f.text_field :author, readonly: true %>
+
+			 <%= f.label :title %>
+			 <%= f.text_field :title, readonly: true %>
+
+			 <%= f.label :edition %>
+			 <%= f.text_field :edition, readonly: true %>
+
+			 <%= f.hidden_field :number_of_pages %>
+			 <%= f.hidden_field :large_image_url %>
+			 <%= f.hidden_field :small_image_url %>
+			 <%= f.hidden_field :medium_image_url %>
+			 <%= f.hidden_field :amazon_url %>
+			 <%= f.hidden_field :publisher %>
+			 <%= f.hidden_field :isbn %>
+
+			 
+			 <div class="clearfix"></div>
+
+			 <%= f.submit "Add My Book", class: 'btn add-book' %>
+			 
+
+		<% end %>
+		</div>
+	</div>
 </div>
 
-<div class="clearfix"></div>
 
-<div id="book-form">
-	<%= form_for @book do |f| %> 
-
-	 <%= f.label "title text" %>
-	 <%= f.text_field :title %>
-
-	 <%= f.label :author %>
-	 <%= f.text_field :author %>
-
-	 <%= f.label :title %>
-	 <%= f.text_field :title %>
-
-	 <%= f.label :edition %>
-	 <%= f.text_field :edition %>
-
-	 <%= f.submit "Add My Book" %>
-
-<% end %>
-</div>
+			
+	
