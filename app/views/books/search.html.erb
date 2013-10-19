@@ -7,7 +7,7 @@
 
 	<div class="span6"
 		<div id="book-form">
-			<%= form_for @book, :html => {:class => "form-horizontal"} do |f| %> 
+			<%= form_for [@user, @book], :html => {:class => "form-horizontal"} do |f| %> 
 			 
 			 <%= f.label :title %>
 			 <%= f.text_field :title, readonly: true %>
@@ -20,6 +20,9 @@
 
 			 <%= f.label :edition %>
 			 <%= f.text_field :edition, readonly: true %>
+
+			 <%= f.label :days, "How many days/week do you need the book?" %>
+			 <%= f.select :days, (1..7) %>
 
 			 <%= f.hidden_field :number_of_pages %>
 			 <%= f.hidden_field :large_image_url %>

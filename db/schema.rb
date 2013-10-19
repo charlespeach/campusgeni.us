@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20131005071016) do
+ActiveRecord::Schema.define(:version => 20131019072145) do
 
   create_table "books", :force => true do |t|
     t.integer  "isbn"
@@ -28,6 +28,7 @@ ActiveRecord::Schema.define(:version => 20131005071016) do
     t.string   "publisher"
     t.string   "edition"
     t.integer  "number_of_pages"
+    t.integer  "days"
   end
 
   create_table "books_courses", :id => false, :force => true do |t|

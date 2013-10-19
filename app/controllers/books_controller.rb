@@ -4,11 +4,22 @@ class BooksController < ApplicationController
 
   before_filter :authenticate_user!, only: [:create]
 
+  def index
+  	user = User.find(params[:user_id])
+  	@books = user.books.find(:all)
+  end
+
+  def show
+
+  end
+
   def create
+
     if current_user.books.build(params[:book]).save
-	  flash[:success] = "added book"
+	  redirect_to user_books_path, notice: "added book"
 	else
-	  redirect_to :back, notice: "shit didn't work son"
+	  redirect_to :back, notice: "shit didn't work son <%= p #{params[:book]}"
+
     end
   end
 
@@ -47,6 +58,7 @@ class BooksController < ApplicationController
 			return
 		end
 
+		@user = current_user
 		@book = Book.new
 
 		amazon_api_params = { 'Operation'   => 'ItemLookup',
@@ -59,28 +71,32 @@ class BooksController < ApplicationController
 		response = Response.new(amazon_response).to_h
 
 		if response['ItemLookupResponse']['Items']['Item'][0].nil?
-			@book.author = response['ItemLookupResponse']['Items']['Item']['ItemAttributes']['Author']
-			@book.publisher = response['ItemLookupResponse']['Items']['Item']['ItemAttributes']['Publisher']
-			@book.title = response['ItemLookupResponse']['Items']['Item']['ItemAttributes']['Title']
-			@book.isbn = response['ItemLookupResponse']['Items']['Item']['ItemAttributes']['ISBN']
-			@book.amazon_url = response['ItemLookupResponse']['Items']['Item']['DetailPageURL']
-			@book.small_image_url = response['ItemLookupResponse']['Items']['Item']['SmallImage']['URL']
+			@book.author           = response['ItemLookupResponse']['Items']['Item']['ItemAttributes']['Author']
+			@book.publisher        = response['ItemLookupResponse']['Items']['Item']['ItemAttributes']['Publisher']
+			@book.title            = response['ItemLookupResponse']['Items']['Item']['ItemAttributes']['Title']
+			@book.isbn             = response['ItemLookupResponse']['Items']['Item']['ItemAttributes']['ISBN']
+			@book.amazon_url       = response['ItemLookupResponse']['Items']['Item']['DetailPageURL']
+			@book.small_image_url  = response['ItemLookupResponse']['Items']['Item']['SmallImage']['URL']
 			@book.medium_image_url = response['ItemLookupResponse']['Items']['Item']['MediumImage']['URL']
-			@book.large_image_url = response['ItemLookupResponse']['Items']['Item']['LargeImage']['URL']
-			@book.edition = response['ItemLookupResponse']['Items']['Item']['ItemAttributes']['Edition']
-			@book.number_of_pages = response['ItemLookupResponse']['Items']['Item']['ItemAttributes']['NumberOfPages']
+			@book.large_image_url  = response['ItemLookupResponse']['Items']['Item']['LargeImage']['URL']
+			@book.edition          = response['ItemLookupResponse']['Items']['Item']['ItemAttributes']['Edition']
+			@book.number_of_pages  = response['ItemLookupResponse']['Items']['Item']['ItemAttributes']['NumberOfPages']
 		else
-			@book.author = response['ItemLookupResponse']['Items']['Item'][0]['ItemAttributes']['Author']
-			@book.publisher = response['ItemLookupResponse']['Items']['Item'][0]['ItemAttributes']['Publisher']
-			@book.title = response['ItemLookupResponse']['Items']['Item'][0]['ItemAttributes']['Title']
-			@book.isbn = response['ItemLookupResponse']['Items']['Item'][0]['ItemAttributes']['ISBN']
-			@book.amazon_url = response['ItemLookupResponse']['Items']['Item'][0]['DetailPageURL']
-			@book.small_image_url = response['ItemLookupResponse']['Items']['Item'][0]['SmallImage']['URL']
+			@book.author           = response['ItemLookupResponse']['Items']['Item'][0]['ItemAttributes']['Author']
+			@book.publisher        = response['ItemLookupResponse']['Items']['Item'][0]['ItemAttributes']['Publisher']
+			@book.title            = response['ItemLookupResponse']['Items']['Item'][0]['ItemAttributes']['Title']
+			@book.isbn             = response['ItemLookupResponse']['Items']['Item'][0]['ItemAttributes']['ISBN']
+			@book.amazon_url       = response['ItemLookupResponse']['Items']['Item'][0]['DetailPageURL']
+			@book.small_image_url  = response['ItemLookupResponse']['Items']['Item'][0]['SmallImage']['URL']
 			@book.medium_image_url = response['ItemLookupResponse']['Items']['Item'][0]['MediumImage']['URL']
-			@book.large_image_url = response['ItemLookupResponse']['Items']['Item'][0]['LargeImage']['URL']
-			@book.edition = response['ItemLookupResponse']['Items']['Item'][0]['ItemAttributes']['Edition']
-			@book.number_of_pages = response['ItemLookupResponse']['Items']['Item'][0]['ItemAttributes']['NumberOfPages']
+			@book.large_image_url  = response['ItemLookupResponse']['Items']['Item'][0]['LargeImage']['URL']
+			@book.edition          = response['ItemLookupResponse']['Items']['Item'][0]['ItemAttributes']['Edition']
+			@book.number_of_pages  = response['ItemLookupResponse']['Items']['Item'][0]['ItemAttributes']['NumberOfPages']
 		end
+	end
+
+	def all_books
+		@books = Book.all
 	end
 
 	private 
