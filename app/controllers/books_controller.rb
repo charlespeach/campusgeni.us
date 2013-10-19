@@ -1,20 +1,18 @@
 class BooksController < ApplicationController
-	require 'yaml' #for when i extract
-	require 'vacuum'
+  require 'yaml' #for when i extract
+  require 'vacuum'
 
-	before_filter :authenticate_user!, only: [:create]
+  before_filter :authenticate_user!, only: [:create]
 
-	def create
+  def create
+    if current_user.books.build(params[:book]).save
+	  flash[:success] = "added book"
+	else
+	  redirect_to :back, notice: "shit didn't work son"
+    end
+  end
 
-	  if current_user.books.build(params[:book]).save
-	  	flash[:success] = "added book"
-	  else
-	  	redirect_to :back, notice: "shit didn't work son"
-	  end
-
-	end
-
-	def search
+  def search
 		################## GOOGLE API #######################################
 		#@tempbook = Book.new
 		#@isbn = params[:search]
