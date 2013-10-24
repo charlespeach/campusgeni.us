@@ -7,7 +7,11 @@
 
 	<div class="span6"
 		<div id="book-form">
-			<%= form_for [@user, @book], :html => {:class => "form-horizontal"} do |f| %> 
+		
+		
+			  <%= form_for @path, html: {class: "form-horizontal"} do |f| %>
+
+
 			 
 			 <%= f.label :title %>
 			 <%= f.text_field :title, readonly: true %>
@@ -39,6 +43,7 @@
 			 
 
 		<% end %>
+	
 		</div>
 	</div>
 </div>
