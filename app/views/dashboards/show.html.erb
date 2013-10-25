@@ -4,34 +4,34 @@
 	  <%= form_tag book_search_path, :method => "get", :class => "form-search" do %>
 	    <div class="input-append">
 	      <%= text_field_tag :search, params[:search], :class => "span4 search-query", :placeholder => "Search a 10 digit ISBN" %>
-	      <%= button_tag "Search", :name => nil, :class => "btn" %>
+	      <%= button_tag "Add Book", :name => nil, :class => "btn" %>
 	    </div>
 	  <% end %>
     </div>
 </div>
 
 
-<div class="row books_listed">
-	
+<div class="row">
+	  <div class="span5 books_listed">
 	  	  <h1> Your books </h1>
 		  <ul>
 		    <% @books.each do |book| %>
-		    <div class="book-listing span3">
-			  
+		    <div class="book-listing span1">
 		        <li> <%= link_to(image_tag("#{book.medium_image_url}"), book.amazon_url) %> </li>
 		     </div>
-		      <div class="book-listing-info span5">
+		      <div class="book-listing-info span3">
 		        <p> Title: <%= book.title %> </p>
 		        <p> ISBN: <%= book.isbn %></p>
 		        <p> Author: <%= book.author %> </p>
 		        <p> Pages: <%= book.number_of_pages %> </p>
 
 		      </div>
-		   
-		    <div class="clearfix"></div>
 		    <% end %>
-
 		  </ul>
+		</div>
+ 
+      <div class="span6 books_part_of">
+	    <h1> You are a passenger in: </h1>
+      </div>
 
-	  
 </div>
