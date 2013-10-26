@@ -10,6 +10,8 @@ class BooksController < ApplicationController
   end
 
   def show
+    user = current_user
+    @book = Book.find(params[:id])
 
   end
 
@@ -42,11 +44,19 @@ class BooksController < ApplicationController
   end
 
   def all_books
-	@books = Book.all
+	  @books = Book.all
   end
+
+  def site_search
+    site_query = params.fetch(:search, '')
+    @books = Book.where("title like ? OR isbn like ?", "%#{site_query}%", "%#{site_query}%")
+  end
+
 
   def make_user_login
   end
+
+
 
   private 
 

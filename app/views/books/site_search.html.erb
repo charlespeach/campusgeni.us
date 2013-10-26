@@ -1,0 +1,11 @@
+<h1> site search </h1>
+<p>
+  <% @books.each do |book| %>
+  <div class="site-search-result">
+    <h3><%= link_to "#{book.title}", user_book_path(book.user, book) %> </h3>
+    <h3><%= book.isbn %> </h3>
+    <h3><%= book.author %> </h3>
+    <h3><%= book.user.name %></h3>
+  </div>
+  <% end %>
+</p>

@@ -19,6 +19,7 @@ CampusgeniUs::Application.routes.draw do
   resources :courses
 
   match 'search' => 'books#search', :as => 'book_search', :via => :get
+  match 'site_search' => 'books#site_search', :as => 'site_search', via: :get
   match 'books' => 'books#all_books', via: :get
   match 'books' => 'books#make_user_login', via: :post
 end
