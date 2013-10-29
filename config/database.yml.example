@@ -1,0 +1,9 @@
+development:
+  host: localhost
+  adapter: postgresql
+  database: campus_genius
+
+test:
+  host: localhost
+  adapter: postgresql
+  database: campus_genius_test
