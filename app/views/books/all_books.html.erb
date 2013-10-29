@@ -1,25 +1,20 @@
-
 <div class="row">
 	<div class="span6 offset3">
-	  
-		  <ul>
-		    <% @books.each do |book| %>
-		    <div class="book-listing">
-			  <div class="book-listing-image">
-		        <li> <%= link_to(image_tag("#{book.medium_image_url}"), book.amazon_url) %> </li>
-		      </div>
-		      <div class="book-listing-info">
-		        <p> Title: <%= book.title %> </p>
-		        <p> ISBN: <%= book.isbn %></p>
-		        <p> Author: <%= book.author %> </p>
-		        <p> Pages: <%= book.number_of_pages %> </p>
-
-		      </div>
-		    </div>
-		    <div class="clearfix"></div>
-		    <% end %>
-		  </ul>
-
-	  
+	  <ul>
+	    <% @books.each do |book| %>
+	    <div class="book-listing">
+		  <div class="book-listing-image">
+	        <li> <%= link_to(image_tag("#{book.medium_image_url}"), book.amazon_url) %> </li>
+	      </div>
+	      <div class="book-listing-info">
+	        <p> Title: <%= book.title %> </p>
+	        <p> ISBN: <%= book.isbn %></p>
+	        <p> Author: <%= book.author %> </p>
+	        <p> Pages: <%= book.number_of_pages %> </p>
+	      </div>
+	    </div>
+	    <div class="clearfix"></div>
+	    <% end %>
+	  </ul>
 	</div>
 </div>
