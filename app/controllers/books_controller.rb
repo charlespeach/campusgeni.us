@@ -1,7 +1,7 @@
 class BooksController < ApplicationController
   require 'yaml' #for when i extract
   require 'vacuum'
- 
+
   before_filter :authenticate_user!, only: [:create, :make_user_login]
 
   def index
@@ -24,23 +24,23 @@ class BooksController < ApplicationController
   end
 
   def search
-	isbn_query = params.fetch(:search, '')
-	strip_hyphen!(isbn_query)
+  	isbn_query = params.fetch(:search, '')
+  	strip_hyphen!(isbn_query)
 
-	unless (isbn_query.size == 10 || isbn_query.size == 13)
-		flash[:notice] = "10/13 Digit ISBN Please."
-		redirect_to root_url
-		return
-	end
+  	unless (isbn_query.size == 10 || isbn_query.size == 13)
+  		flash[:notice] = "10/13 Digit ISBN Please."
+  		redirect_to root_url
+  		return
+  	end
 
-	@user = current_user
-	@book = AmazonSearch.new("#{isbn_query}").amazon_request
+  	@user = current_user
+  	@book = AmazonSearch.new("#{isbn_query}").amazon_request
 
-	if @user 
-		@path = [@user, @book]
-	else
-		@path = @book 
-	end
+  	if @user
+  		@path = [@user, @book]
+  	else
+  		@path = @book
+  	end
   end
 
   def all_books
@@ -52,16 +52,13 @@ class BooksController < ApplicationController
     @books = Book.where("title like ? OR isbn like ?", "%#{site_query}%", "%#{site_query}%")
   end
 
-
   def make_user_login
   end
 
-
-
-  private 
+  private
 
   def strip_hyphen!(string)
-	string.gsub!("-", "")
+	 string.gsub!("-", "")
   end
 
 end

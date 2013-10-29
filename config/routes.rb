@@ -1,19 +1,19 @@
 CampusgeniUs::Application.routes.draw do
-  
+
   match '/dashboard' => 'dashboards#show', as: 'dashboard'
 
   authenticated :user do
     root :to => 'dashboards#show'
-  end  
+  end
 
   root :to => "home#index"
-  
+
   devise_for :users
 
-  resources :users do 
+  resources :users do
     resources :books
   end
-  
+
   resource :dashboard, only: [:show]
   resources :sections
   resources :courses

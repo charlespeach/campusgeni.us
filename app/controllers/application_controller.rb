@@ -26,9 +26,7 @@ end
   # def search_isbn(isbn)
   # 	url = "https://www.googleapis.com/books/v1/volumes?q=isbn:#{isbn}"
   # 	result = JSON.parse(open(url).read)
-  # 	result 
+  # 	result
   # end
-
-  
 
 end
